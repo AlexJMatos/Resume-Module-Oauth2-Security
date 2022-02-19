@@ -1,0 +1,53 @@
+RUN THESE COMMANDS BEFORE ANYTHING 
+netsh int ip add addr 1 10.5.0.4/32 st=ac sk=tr
+netsh int ip add addr 1 10.5.0.5/32 st=ac sk=tr
+netsh int ip add addr 1 10.5.0.6/32 st=ac sk=tr
+netsh int ip add addr 1 10.5.0.7/32 st=ac sk=tr
+
+--- POST, PUT, PATCH EXAMPLE RESUME
+
+{
+    "firstName": "Alejandro",
+    "lastName": "Matos",
+    "email": "alexjmatos7@gmail.com",
+    "phoneNumber": "9999685921",
+    "address": {
+        "street": "Calle 8 #231",
+        "city": "Merida",
+        "state": "Yucatan",
+        "country": "Mexico",
+        "zipCode": "97130"
+    }
+}
+
+
+--- POST, PUT EXAMPLE TECHNOLOGY
+{
+    "technology": ".NET Core",
+    "description": "Development of microservices and REST APIs using ASP.NET"
+}
+
+
+--- POST, PUT EXAMPLE SKILL
+{
+    "skill": "Creative Thinking",
+    "type": "SOFT_SKILL",
+    "description": "Ability to think out of the box"
+}
+
+--- POST, PUT EXAMPLE EDUCATION
+{
+    "degree": "Mechatronics Engineering",
+    "type": "Bachelor",
+    "fromDate": "2016-08-10",
+    "untilDate": "2021-07-15"
+}
+
+-- POST, PUT, EXAMPLE WORK EXPERIENCE
+{
+    "position": "Electromechanical Engineer",
+    "company": "Cemex",
+    "description": "Preventive and corrective maintenance of machinery",
+    "fromDate": "2020-09-10",
+    "untilDate": "2021-06-15"
+}

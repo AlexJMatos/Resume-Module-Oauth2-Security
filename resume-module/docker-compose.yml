@@ -1,0 +1,63 @@
+version: '3.1'
+services:
+
+  app:
+    image: resume-module-1.0
+    build:
+      context: .
+    container_name: resume-module-app
+    depends_on:
+    - resume-db
+    environment:
+    - SPRING_DATASOURCE_URL=jdbc:postgresql://resume-db:5432/resume-module-db
+    - SPRING_DATASOURCE_USERNAME=resume_module_user
+    - SPRING_DATASOURCE_PASSWORD=resume_itk
+    - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    ports:
+    - 8080:8080
+    networks:
+    - spring
+    - postgres
+    
+  resume-db:
+    container_name: resume-db
+    image: postgres:14
+    environment:
+      POSTGRES_DB: resume-module-db
+      POSTGRES_USER: resume_module_user
+      POSTGRES_PASSWORD: resume_itk
+      PGDATA: /data/postgres
+    volumes:
+    - postgres:/data/postgres
+    expose: 
+      - 5432
+    ports: 
+      - 5433:5432
+    networks:
+    - postgres
+    restart: unless-stopped
+    
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    volumes:
+    - pgadmin:/var/lib/pgadmin
+    ports:
+    - 5050:80
+    networks:
+    - postgres
+    restart: unless-stopped
+    
+networks:
+  postgres:
+    driver: bridge
+  spring:
+    driver: bridge
+    
+volumes:
+  postgres: null
+  pgadmin: null
