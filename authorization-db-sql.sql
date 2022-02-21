@@ -38,19 +38,40 @@ create table oauth2_registered_client(
 );
 
 insert into users (username, password) values
-('carlos.reyes@theksquaregroup.com', '$2a$10$1sQX19Kb86igELRBIeJrAeZGWZSpYXSV1EAxTL7mDOkQTJJYbEuWC'),
-('guillermo.ceme@theksquaregroup.com', '$2a$10$vEX9Z3KphBjT3Eq2VsnqSuz9.8Hu1exHb23gg038xeQgwZzhVRYQ6'),
-('julio.vargas@theksquaregroup.com', '$2a$10$RYJNWpmq8eTUAyYqxH5o1Ova7qMc0J8YLrUtiu7mWfLOg.kMOAPtG');
+('carlos.reyes@theksquaregroup.com', '$2a$10$1sQX19Kb86igELRBIeJrAeZGWZSpYXSV1EAxTL7mDOkQTJJYbEuWC'), 
+('guillermo.ceme@theksquaregroup.com', '$2a$10$vEX9Z3KphBjT3Eq2VsnqSuz9.8Hu1exHb23gg038xeQgwZzhVRYQ6'), 
+('ulises.ancona@theksquaregroup.com', '$2a$10$vEX9Z3KphBjT3Eq2VsnqSuz9.8Hu1exHb23gg038xeQgwZzhVRYQ6'),
+('julio.vargas@theksquaregroup.com', '$2a$10$RYJNWpmq8eTUAyYqxH5o1Ova7qMc0J8YLrUtiu7mWfLOg.kMOAPtG'),
+('alejandro.matos@theksquaregroup.com', '$2a$10$RYJNWpmq8eTUAyYqxH5o1Ova7qMc0J8YLrUtiu7mWfLOg.kMOAPtG'),
+('erick.ortiz@theksquaregroup.com', '$2a$10$RYJNWpmq8eTUAyYqxH5o1Ova7qMc0J8YLrUtiu7mWfLOg.kMOAPtG'),
+('shaid.bojorquez@theksquaregroup.com', '$2a$10$RYJNWpmq8eTUAyYqxH5o1Ova7qMc0J8YLrUtiu7mWfLOg.kMOAPtG'),
+('gregorio.escobedo@theksquaregroup.com', '$2a$10$RYJNWpmq8eTUAyYqxH5o1Ova7qMc0J8YLrUtiu7mWfLOg.kMOAPtG'),
+('giovanna.borges@theksquaregroup.com', '$2a$10$RYJNWpmq8eTUAyYqxH5o1Ova7qMc0J8YLrUtiu7mWfLOg.kMOAPtG'),
+('gabriel.osorno@theksquaregroup.com', '$2a$10$RYJNWpmq8eTUAyYqxH5o1Ova7qMc0J8YLrUtiu7mWfLOg.kMOAPtG');
 
 insert into authorities values
-('carlos.reyes@theksquaregroup.com', 'ROLE_ADMIN'),
-('guillermo.ceme@theksquaregroup.com', 'ROLE_MANAGER'),
-('julio.vargas@theksquaregroup.com', 'ROLE_USER');
+('carlos.reyes@theksquaregroup.com', 'ROLE_ADMIN'), 
+('guillermo.ceme@theksquaregroup.com', 'ROLE_MANAGER'), 
+('ulises.ancona@theksquaregroup.com', 'ROLE_USER'),
+('julio.vargas@theksquaregroup.com', 'ROLE_USER'),
+('alejandro.matos@theksquaregroup.com', 'ROLE_USER'),
+('erick.ortiz@theksquaregroup.com', 'ROLE_USER'),
+('shaid.bojorquez@theksquaregroup.com', 'ROLE_USER'),
+('gregorio.escobedo@theksquaregroup.com', 'ROLE_USER'),
+('giovanna.borges@theksquaregroup.com', 'ROLE_USER'),
+('gabriel.osorno@theksquaregroup.com', 'ROLE_USER');
 
 insert into ids (username) values
-('carlos.reyes@theksquaregroup.com'),
-('guillermo.ceme@theksquaregroup.com'),
-('julio.vargas@theksquaregroup.com');
+('carlos.reyes@theksquaregroup.com'), 
+('guillermo.ceme@theksquaregroup.com'), 
+('ulises.ancona@theksquaregroup.com'),
+('julio.vargas@theksquaregroup.com'),
+('alejandro.matos@theksquaregroup.com'),
+('erick.ortiz@theksquaregroup.com'),
+('shaid.bojorquez@theksquaregroup.com'),
+('gregorio.escobedo@theksquaregroup.com'),
+('giovanna.borges@theksquaregroup.com'),
+('gabriel.osorno@theksquaregroup.com');
 
 insert into oauth2_registered_client (id, client_id, client_id_issued_at, client_secret, client_name, client_authentication_methods, authorization_grant_types, redirect_uris, scopes, client_settings, token_settings) values
 ('daf916a3-e56d-4fd3-bfc5-3d09d72f654e', 'itk-client', '2022-02-15 05:09:25.289471', '{noop}secret', 'daf916a3-e56d-4fd3-bfc5-3d09d72f654e', 'client_secret_basic', 'refresh_token,authorization_code', 'http://10.5.0.5:8080/authorized,http://10.5.0.5:8080/login/oauth2/code/itk-client-oidc', 'trust,openid', '{"@class":"java.util.Collections$UnmodifiableMap","settings.client.require-proof-key":false,"settings.client.require-authorization-consent":false}', '{"@class":"java.util.Collections$UnmodifiableMap","settings.token.reuse-refresh-tokens":true,"settings.token.id-token-signature-algorithm":["org.springframework.security.oauth2.jose.jws.SignatureAlgorithm","RS256"],"settings.token.access-token-time-to-live":["java.time.Duration",300.000000000],"settings.token.refresh-token-time-to-live":["java.time.Duration",3600.000000000]}');

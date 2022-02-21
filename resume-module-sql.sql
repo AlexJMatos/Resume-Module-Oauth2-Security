@@ -138,20 +138,20 @@ INSERT INTO public.address(street, city, state, country, zip_code)
 		   ('Extramuros Eje 5, 34 Esc. 913, Esc. 270', 'General Escobedo', 'Chiapas', 'Mexico', '83570'),
 		   ('Quinta Zacatlán 3, Edificio 6', 'Oaxaca', 'Oaxaca', 'Mexico', '79330'),
 		   ('Monte Cecilia Yago 788 Edificio 2, Puerta 408', 'El Salto', 'Durango', 'Mexico', '65881'),
-		   ('Riera Raquel Feliciano, 4 Puerta 246', 'Villa Nicolás Romero', 'Hidalgo', 'Mexico', '40680');
+		   ('Calle 8 #231 Vista Alegre Norte', 'Merida', 'Yucatan', 'Mexico', '97130');
 		   
 -- Table: public.resumes
 INSERT INTO public.resumes(id, first_name, last_name, email, phone_number, address_id)
-	VALUES (1, 'Edilberto', 'Becerra', 'edi.becerra@gmail.com', '735-353-5508', 8),
-		   (2, 'Esthela', 'Camarena', 'esthela.camarena@outlook.com', '442-213-5258', 6),
-		   (3, 'Rufino', 'Mancera', 'rufiman@gmail.com', '555-553-1928', 4),
-		   (4, 'Amanda', 'Segundo', 'asegundo@outlook.com', '999-985-8111', 2),
-		   (5, 'Norberta', 'Canul', 'canul.nor@gmail.com', '667-760-2480', 10),
-		   (6, 'Erik', 'Cordero', 'e.cordero@outlook.com', '999-984-0008', 3),
-		   (7, 'Idalia', 'Lagunes', 'ida.lagunes@gmail.com', '951-573-0350', 5),
-		   (8, 'Deyanira', 'Meneses', 'meneses.deyanira@outlook.com', '656-612-1870', 7),
-		   (9, 'Reynalda', 'Alvaro', 'alvaro.reyna@gmail.com', '999-944-1731', 1),
-		   (10, 'Aurelio', 'Camargo', 'camargo.aurelio@outlook.com', '777-312-1424', 9);
+	VALUES (1, 'Carlos', 'Reyes', 'carlos.reyes@gmail.com', '735-353-5508', 8),
+		   (2, 'Guillermo', 'Ceme', 'guillermo.ceme@outlook.com', '442-213-5258', 6),
+		   (3, 'Ulises', 'Ancona', 'ulises.ancona@gmail.com', '555-553-1928', 4),
+		   (4, 'Julio', 'Vargas', 'julio.vargas@outlook.com', '999-985-8111', 2),
+		   (5, 'Alejandro', 'Matos', 'alexjmatos7@gmail.com', '999-968-5921', 10),
+		   (6, 'Erick', 'Ortiz', 'erick.ortiz@outlook.com', '999-984-0008', 3),
+		   (7, 'Shaid', 'Borjorquez', 'shaid.bojorquez@gmail.com', '951-573-0350', 5),
+		   (8, 'Gregorio', 'Escobedo', 'gregorio.escobedo@outlook.com', '656-612-1870', 7),
+		   (9, 'Giovanna', 'Borges', 'giovanna.borges@gmail.com', '999-944-1731', 1),
+		   (10, 'Gabriel', 'Osorno', 'gabriel.osorno@outlook.com', '777-312-1424', 9);
 		   
 -- Table: public.technologies
 INSERT INTO public.technologies(technology, description, technology_employee_id)

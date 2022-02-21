@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import edu.itk.project.security.dto.*;
+import edu.itk.project.security.repository.UserRepository;
 import reactor.core.publisher.Mono;
 
 import java.util.HashSet;
@@ -43,6 +44,9 @@ public class ClientServerController {
 
 	@Autowired
 	JdbcTemplate jdbcTemplate;
+
+	@Autowired
+	UserRepository userRepository;
 
 	@SuppressWarnings("deprecation")
 	@RequestMapping("/")
@@ -121,7 +125,7 @@ public class ClientServerController {
 			+ "/employees/{employeeId}/resume/work-experience/{educationId}";
 
 	private static final String PATCH_RESUME = RESUME_MODULE_HOST + "/employees/{employeeId}/resume";
-	
+
 	// GET all resumes
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
 	@GetMapping("/employees/resumes")
@@ -143,10 +147,12 @@ public class ClientServerController {
 
 	// GET Resume by ID
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGER', 'ROLE_USER')")
-	@GetMapping("/employees/{employeeId}/resume")
+	@GetMapping("/employees/resume")
 	public Object findResumeByEmployeeId(
-			@RegisteredOAuth2AuthorizedClient("itk-client-authorization-code") OAuth2AuthorizedClient oauth2AuthorizedClient,
-			@PathVariable("employeeId") long employeeId) {
+			@RegisteredOAuth2AuthorizedClient("itk-client-authorization-code") OAuth2AuthorizedClient oauth2AuthorizedClient) {
+
+		long employeeId = userRepository.findByUsername(oauth2AuthorizedClient.getPrincipalName()).getEmployeeId();
+
 		return this.webClient.get().uri(GET_RESUME_BY_ID, employeeId)
 				.attributes(oauth2AuthorizedClient(oauth2AuthorizedClient)).exchangeToMono(response -> {
 					if (response.statusCode().isError()) {
@@ -159,10 +165,11 @@ public class ClientServerController {
 
 	// GET Technologies
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGER', 'ROLE_USER')")
-	@GetMapping("/employees/{employeeId}/resume/technologies")
+	@GetMapping("/employees/resume/technologies")
 	public Object findTechnologies(
-			@RegisteredOAuth2AuthorizedClient("itk-client-authorization-code") OAuth2AuthorizedClient oauth2AuthorizedClient,
-			@PathVariable("employeeId") long employeeId) {
+			@RegisteredOAuth2AuthorizedClient("itk-client-authorization-code") OAuth2AuthorizedClient oauth2AuthorizedClient) {
+		long employeeId = userRepository.findByUsername(oauth2AuthorizedClient.getPrincipalName()).getEmployeeId();
+
 		return this.webClient.get().uri(GET_TECHNOLOGIES, employeeId)
 				.attributes(oauth2AuthorizedClient(oauth2AuthorizedClient)).exchangeToMono(response -> {
 					if (response.statusCode().isError()) {
@@ -175,10 +182,12 @@ public class ClientServerController {
 
 	// GET Technology by ID
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGER', 'ROLE_USER')")
-	@GetMapping("/employees/{employeeId}/resume/technologies/{technologyId}")
+	@GetMapping("/employees/resume/technologies/{technologyId}")
 	public Object findTechnology(
 			@RegisteredOAuth2AuthorizedClient("itk-client-authorization-code") OAuth2AuthorizedClient oauth2AuthorizedClient,
-			@PathVariable("employeeId") long employeeId, @PathVariable("technologyId") long technologyId) {
+			@PathVariable("technologyId") long technologyId) {
+		long employeeId = userRepository.findByUsername(oauth2AuthorizedClient.getPrincipalName()).getEmployeeId();
+
 		return this.webClient.get().uri(GET_TECHNOLOGY_BY_ID, employeeId, technologyId)
 				.attributes(oauth2AuthorizedClient(oauth2AuthorizedClient)).exchangeToMono(response -> {
 					if (response.statusCode().isError()) {
@@ -191,10 +200,11 @@ public class ClientServerController {
 
 	// GET Skills
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGER', 'ROLE_USER')")
-	@GetMapping("/employees/{employeeId}/resume/skills")
+	@GetMapping("/employees/resume/skills")
 	public Object findSkills(
-			@RegisteredOAuth2AuthorizedClient("itk-client-authorization-code") OAuth2AuthorizedClient oauth2AuthorizedClient,
-			@PathVariable("employeeId") long employeeId) {
+			@RegisteredOAuth2AuthorizedClient("itk-client-authorization-code") OAuth2AuthorizedClient oauth2AuthorizedClient) {
+		long employeeId = userRepository.findByUsername(oauth2AuthorizedClient.getPrincipalName()).getEmployeeId();
+
 		return this.webClient.get().uri(GET_SKILLS, employeeId)
 				.attributes(oauth2AuthorizedClient(oauth2AuthorizedClient)).exchangeToMono(response -> {
 					if (response.statusCode().isError()) {
@@ -207,10 +217,12 @@ public class ClientServerController {
 
 	// GET Skill by ID
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGER', 'ROLE_USER')")
-	@GetMapping("/employees/{employeeId}/resume/skills/{skillId}")
+	@GetMapping("/employees/resume/skills/{skillId}")
 	public Object findSkill(
 			@RegisteredOAuth2AuthorizedClient("itk-client-authorization-code") OAuth2AuthorizedClient oauth2AuthorizedClient,
-			@PathVariable("employeeId") long employeeId, @PathVariable("skillId") long skillId) {
+			@PathVariable("skillId") long skillId) {
+		long employeeId = userRepository.findByUsername(oauth2AuthorizedClient.getPrincipalName()).getEmployeeId();
+
 		return this.webClient.get().uri(GET_SKILL_BY_ID, employeeId, skillId)
 				.attributes(oauth2AuthorizedClient(oauth2AuthorizedClient)).exchangeToMono(response -> {
 					if (response.statusCode().isError()) {
@@ -223,10 +235,11 @@ public class ClientServerController {
 
 	// GET Educational background
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGER', 'ROLE_USER')")
-	@GetMapping("/employees/{employeeId}/resume/education")
+	@GetMapping("/employees/resume/education")
 	public Object findEducation(
-			@RegisteredOAuth2AuthorizedClient("itk-client-authorization-code") OAuth2AuthorizedClient oauth2AuthorizedClient,
-			@PathVariable("employeeId") long employeeId) {
+			@RegisteredOAuth2AuthorizedClient("itk-client-authorization-code") OAuth2AuthorizedClient oauth2AuthorizedClient) {
+		long employeeId = userRepository.findByUsername(oauth2AuthorizedClient.getPrincipalName()).getEmployeeId();
+
 		return this.webClient.get().uri(GET_EDUCATIONAL_BACKGROUND, employeeId)
 				.attributes(oauth2AuthorizedClient(oauth2AuthorizedClient)).exchangeToMono(response -> {
 					if (response.statusCode().isError()) {
@@ -239,10 +252,12 @@ public class ClientServerController {
 
 	// GET Education background by ID
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGER', 'ROLE_USER')")
-	@GetMapping("/employees/{employeeId}/resume/education/{educationId}")
+	@GetMapping("/employees/resume/education/{educationId}")
 	public Object findEducationById(
 			@RegisteredOAuth2AuthorizedClient("itk-client-authorization-code") OAuth2AuthorizedClient oauth2AuthorizedClient,
-			@PathVariable("employeeId") long employeeId, @PathVariable("educationId") long educationId) {
+			@PathVariable("educationId") long educationId) {
+		long employeeId = userRepository.findByUsername(oauth2AuthorizedClient.getPrincipalName()).getEmployeeId();
+
 		return this.webClient.get().uri(GET_EDUCATIONAL_DEGREE_BY_ID, employeeId, educationId)
 				.attributes(oauth2AuthorizedClient(oauth2AuthorizedClient)).exchangeToMono(response -> {
 					if (response.statusCode().isError()) {
@@ -255,10 +270,11 @@ public class ClientServerController {
 
 	// GET Work experience
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGER', 'ROLE_USER')")
-	@GetMapping("/employees/{employeeId}/resume/work-experience")
+	@GetMapping("/employees/resume/work-experience")
 	public Object findWorkExperience(
-			@RegisteredOAuth2AuthorizedClient("itk-client-authorization-code") OAuth2AuthorizedClient oauth2AuthorizedClient,
-			@PathVariable("employeeId") long employeeId) {
+			@RegisteredOAuth2AuthorizedClient("itk-client-authorization-code") OAuth2AuthorizedClient oauth2AuthorizedClient) {
+		long employeeId = userRepository.findByUsername(oauth2AuthorizedClient.getPrincipalName()).getEmployeeId();
+
 		return this.webClient.get().uri(GET_WORK_EXPERIENCE, employeeId)
 				.attributes(oauth2AuthorizedClient(oauth2AuthorizedClient)).exchangeToMono(response -> {
 					if (response.statusCode().isError()) {
@@ -271,10 +287,12 @@ public class ClientServerController {
 
 	// GET Work experience by ID
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGER', 'ROLE_USER')")
-	@GetMapping("/employees/{employeeId}/resume/work-experience/{workId}")
+	@GetMapping("/employees/resume/work-experience/{workId}")
 	public Object findWorkExperienceById(
 			@RegisteredOAuth2AuthorizedClient("itk-client-authorization-code") OAuth2AuthorizedClient oauth2AuthorizedClient,
-			@PathVariable("employeeId") long employeeId, @PathVariable("workId") long workId) {
+			@PathVariable("workId") long workId) {
+		long employeeId = userRepository.findByUsername(oauth2AuthorizedClient.getPrincipalName()).getEmployeeId();
+
 		return this.webClient.get().uri(GET_WORK_EXPERIENCE_BY_ID, employeeId, workId)
 				.attributes(oauth2AuthorizedClient(oauth2AuthorizedClient)).exchangeToMono(response -> {
 					if (response.statusCode().isError()) {
@@ -287,10 +305,12 @@ public class ClientServerController {
 
 	// POST a Resume
 	@PreAuthorize("hasAnyRole('ROLE_USER')")
-	@PostMapping("/employees/{employeeId}/resume")
+	@PostMapping("/employees/resume")
 	public Object addResume(
 			@RegisteredOAuth2AuthorizedClient("itk-client-authorization-code") OAuth2AuthorizedClient oauth2AuthorizedClient,
-			@PathVariable("employeeId") long employeeId, @RequestBody ResumeDTO request) {
+			@RequestBody ResumeDTO request) {
+		long employeeId = userRepository.findByUsername(oauth2AuthorizedClient.getPrincipalName()).getEmployeeId();
+
 		return this.webClient.post().uri(POST_RESUME, employeeId).contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).body(Mono.just(request), ResumeDTO.class)
 				.attributes(oauth2AuthorizedClient(oauth2AuthorizedClient)).exchangeToMono(response -> {
@@ -304,10 +324,12 @@ public class ClientServerController {
 
 	// POST a Technology
 	@PreAuthorize("hasAnyRole('ROLE_USER')")
-	@PostMapping("/employees/{employeeId}/resume/technologies")
+	@PostMapping("/employees/resume/technologies")
 	public Object addTechnology(
 			@RegisteredOAuth2AuthorizedClient("itk-client-authorization-code") OAuth2AuthorizedClient oauth2AuthorizedClient,
-			@PathVariable("employeeId") long employeeId, @RequestBody TechnologyDTO request) {
+			@RequestBody TechnologyDTO request) {
+		long employeeId = userRepository.findByUsername(oauth2AuthorizedClient.getPrincipalName()).getEmployeeId();
+
 		return this.webClient.post().uri(POST_TECHNOLOGY, employeeId).contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).body(Mono.just(request), TechnologyDTO.class)
 				.attributes(oauth2AuthorizedClient(oauth2AuthorizedClient)).exchangeToMono(response -> {
@@ -321,10 +343,12 @@ public class ClientServerController {
 
 	// POST a Skill
 	@PreAuthorize("hasAnyRole('ROLE_USER')")
-	@PostMapping("/employees/{employeeId}/resume/skills")
+	@PostMapping("/employees/resume/skills")
 	public Object addSkill(
 			@RegisteredOAuth2AuthorizedClient("itk-client-authorization-code") OAuth2AuthorizedClient oauth2AuthorizedClient,
-			@PathVariable("employeeId") long employeeId, @RequestBody SkillDTO request) {
+			@RequestBody SkillDTO request) {
+		long employeeId = userRepository.findByUsername(oauth2AuthorizedClient.getPrincipalName()).getEmployeeId();
+
 		return this.webClient.post().uri(POST_SKILL, employeeId).contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).body(Mono.just(request), SkillDTO.class)
 				.attributes(oauth2AuthorizedClient(oauth2AuthorizedClient)).exchangeToMono(response -> {
@@ -338,10 +362,12 @@ public class ClientServerController {
 
 	// POST Education
 	@PreAuthorize("hasAnyRole('ROLE_USER')")
-	@PostMapping("/employees/{employeeId}/resume/education")
+	@PostMapping("/employees/resume/education")
 	public Object addEducation(
 			@RegisteredOAuth2AuthorizedClient("itk-client-authorization-code") OAuth2AuthorizedClient oauth2AuthorizedClient,
-			@PathVariable("employeeId") long employeeId, @RequestBody EducationDTO request) {
+			@RequestBody EducationDTO request) {
+		long employeeId = userRepository.findByUsername(oauth2AuthorizedClient.getPrincipalName()).getEmployeeId();
+
 		return this.webClient.post().uri(POST_EDUCATION, employeeId).contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).body(Mono.just(request), EducationDTO.class)
 				.attributes(oauth2AuthorizedClient(oauth2AuthorizedClient)).exchangeToMono(response -> {
@@ -355,10 +381,12 @@ public class ClientServerController {
 
 	// POST Work Experience
 	@PreAuthorize("hasAnyRole('ROLE_USER')")
-	@PostMapping("/employees/{employeeId}/resume/work-experience")
+	@PostMapping("/employees/resume/work-experience")
 	public Object addWorkExperience(
 			@RegisteredOAuth2AuthorizedClient("itk-client-authorization-code") OAuth2AuthorizedClient oauth2AuthorizedClient,
-			@PathVariable("employeeId") long employeeId, @RequestBody WorkExperienceDTO request) {
+			@RequestBody WorkExperienceDTO request) {
+		long employeeId = userRepository.findByUsername(oauth2AuthorizedClient.getPrincipalName()).getEmployeeId();
+
 		return this.webClient.post().uri(POST_WORK_EXPERIENCE, employeeId).contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).body(Mono.just(request), WorkExperienceDTO.class)
 				.attributes(oauth2AuthorizedClient(oauth2AuthorizedClient)).exchangeToMono(response -> {
@@ -372,10 +400,12 @@ public class ClientServerController {
 
 	// PUT Resume
 	@PreAuthorize("hasAnyRole('ROLE_USER')")
-	@PutMapping("/employees/{employeeId}/resume")
+	@PutMapping("/employees/resume")
 	public Object editResume(
 			@RegisteredOAuth2AuthorizedClient("itk-client-authorization-code") OAuth2AuthorizedClient oauth2AuthorizedClient,
-			@PathVariable("employeeId") long employeeId, @RequestBody ResumeDTO request) {
+			@RequestBody ResumeDTO request) {
+		long employeeId = userRepository.findByUsername(oauth2AuthorizedClient.getPrincipalName()).getEmployeeId();
+
 		return this.webClient.put().uri(PUT_RESUME, employeeId).contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).body(Mono.just(request), ResumeDTO.class)
 				.attributes(oauth2AuthorizedClient(oauth2AuthorizedClient)).exchangeToMono(response -> {
@@ -389,11 +419,12 @@ public class ClientServerController {
 
 	// PUT Technology
 	@PreAuthorize("hasAnyRole('ROLE_USER')")
-	@PutMapping("/employees/{employeeId}/resume/technologies/{technologyId}")
+	@PutMapping("/employees/resume/technologies/{technologyId}")
 	public Object editTechnology(
 			@RegisteredOAuth2AuthorizedClient("itk-client-authorization-code") OAuth2AuthorizedClient oauth2AuthorizedClient,
-			@PathVariable("employeeId") long employeeId, @PathVariable("technologyId") long technologyId,
-			@RequestBody TechnologyDTO request) {
+			@PathVariable("technologyId") long technologyId, @RequestBody TechnologyDTO request) {
+		long employeeId = userRepository.findByUsername(oauth2AuthorizedClient.getPrincipalName()).getEmployeeId();
+
 		return this.webClient.put().uri(PUT_TECHNOLOGY, employeeId, technologyId)
 				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
 				.body(Mono.just(request), TechnologyDTO.class)
@@ -408,11 +439,12 @@ public class ClientServerController {
 
 	// PUT Skill
 	@PreAuthorize("hasAnyRole('ROLE_USER')")
-	@PutMapping("/employees/{employeeId}/resume/skills/{skillId}")
+	@PutMapping("/employees/resume/skills/{skillId}")
 	public Object editSkill(
 			@RegisteredOAuth2AuthorizedClient("itk-client-authorization-code") OAuth2AuthorizedClient oauth2AuthorizedClient,
-			@PathVariable("employeeId") long employeeId, @PathVariable("skillId") long skillId,
-			@RequestBody SkillDTO request) {
+			@PathVariable("skillId") long skillId, @RequestBody SkillDTO request) {
+		long employeeId = userRepository.findByUsername(oauth2AuthorizedClient.getPrincipalName()).getEmployeeId();
+
 		return this.webClient.put().uri(PUT_SKILL, employeeId, skillId).contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).body(Mono.just(request), SkillDTO.class)
 				.attributes(oauth2AuthorizedClient(oauth2AuthorizedClient)).exchangeToMono(response -> {
@@ -426,11 +458,11 @@ public class ClientServerController {
 
 	// PUT Education
 	@PreAuthorize("hasAnyRole('ROLE_USER')")
-	@PutMapping("/employees/{employeeId}/resume/education/{educationId}")
+	@PutMapping("/employees/resume/education/{educationId}")
 	public Object editEducation(
 			@RegisteredOAuth2AuthorizedClient("itk-client-authorization-code") OAuth2AuthorizedClient oauth2AuthorizedClient,
-			@PathVariable("employeeId") long employeeId, @PathVariable("educationId") long educationId,
-			@RequestBody EducationDTO request) {
+			@PathVariable("educationId") long educationId, @RequestBody EducationDTO request) {
+		long employeeId = userRepository.findByUsername(oauth2AuthorizedClient.getPrincipalName()).getEmployeeId();
 		return this.webClient.put().uri(PUT_EDUCATION, employeeId, educationId).contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).body(Mono.just(request), EducationDTO.class)
 				.attributes(oauth2AuthorizedClient(oauth2AuthorizedClient)).exchangeToMono(response -> {
@@ -444,11 +476,12 @@ public class ClientServerController {
 
 	// PUT Work Experience
 	@PreAuthorize("hasAnyRole('ROLE_USER')")
-	@PutMapping("/employees/{employeeId}/resume/work-experience/{workId}")
+	@PutMapping("/employees/resume/work-experience/{workId}")
 	public Object editWorkExperience(
 			@RegisteredOAuth2AuthorizedClient("itk-client-authorization-code") OAuth2AuthorizedClient oauth2AuthorizedClient,
-			@PathVariable("employeeId") long employeeId, @PathVariable("workId") long workId,
-			@RequestBody WorkExperienceDTO request) {
+			@PathVariable("workId") long workId, @RequestBody WorkExperienceDTO request) {
+		long employeeId = userRepository.findByUsername(oauth2AuthorizedClient.getPrincipalName()).getEmployeeId();
+
 		return this.webClient.put().uri(PUT_WORK_EXPERIENCE, employeeId, workId).contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).body(Mono.just(request), WorkExperienceDTO.class)
 				.attributes(oauth2AuthorizedClient(oauth2AuthorizedClient)).exchangeToMono(response -> {
@@ -461,10 +494,12 @@ public class ClientServerController {
 	}
 
 	@PreAuthorize("hasAnyRole('ROLE_USER')")
-	@PatchMapping("/employees/{employeeId}/resume")
+	@PatchMapping("/employees/resume")
 	public Object editPartialResume(
 			@RegisteredOAuth2AuthorizedClient("itk-client-authorization-code") OAuth2AuthorizedClient oauth2AuthorizedClient,
-			@PathVariable("employeeId") long employeeId, @RequestBody ResumeDTO request) {
+			@RequestBody ResumeDTO request) {
+		long employeeId = userRepository.findByUsername(oauth2AuthorizedClient.getPrincipalName()).getEmployeeId();
+
 		return this.webClient.patch().uri(PATCH_RESUME, employeeId).contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).body(Mono.just(request), ResumeDTO.class)
 				.attributes(oauth2AuthorizedClient(oauth2AuthorizedClient)).exchangeToMono(response -> {
