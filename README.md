@@ -33,9 +33,16 @@ Once connected, create two databases called "authorization-db" and "resume-modul
 
 ### 6. Log in 
 Now, login in the redirect login form found in http://localhost:8080. The following users and passwords are present:
-#### Username: julio.vargas@theksquaregroup.com, Password: user, ROLE_USER
-#### Username: guillermo.ceme@theksquaregroup.com, Password: manager, ROLE_MANAGER
 #### Username: carlos.reyes@theksquaregroup.com, Password: admin, ROLE_ADMIN
+#### Username: guillermo.ceme@theksquaregroup.com, Password: manager, ROLE_MANAGER
+#### username: ulises.ancona@theksquaregroup.com, Password: user, ROLE_USER
+#### username: julio.vargas@theksquaregroup.com, Password: user, ROLE_USER
+#### username: alejandro.matos@theksquaregroup.com, Password: user, ROLE_USER
+#### username: erick.ortiz@theksquaregroup.com, Password: user, ROLE_USER
+#### username: shaid.bojorquez@theksquaregroup.com, Password: user, ROLE_USER
+#### username: gregorio.escobedo@theksquaregroup.com, Password: user, ROLE_USER
+#### username: giovanna.borges@theksquaregroup.com, Password: user, ROLE_USER
+#### username: gabriel.osorno@theksquaregroup.com, Password: user, ROLE_USER 
 
 ### 7. Test endpoints
 The following are available, each one has uniques roles for accesibility.
